@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {},
+	"extensions": {
+		"recommendations": [
+			"marus25.cortex-debug",
+			"mcu-debug.debug-tracker-vscode",
+			"mcu-debug.memory-view",
+			"mcu-debug.rtos-views",
+			"ms-vscode.vscode-serial-monitor",
+			"mcu-debug.peripheral-viewer",
+			"ms-vscode.cmake-tools"
+		]
+	}
+}

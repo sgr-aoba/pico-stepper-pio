@@ -1,0 +1,45 @@
+;
+; Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+;
+; SPDX-License-Identifier: BSD-3-Clause
+;
+
+; Side-set pin 0 is used for PWM output
+
+.program pulse
+.wrap_target
+    pull block
+    out x 16        ; set x from OSR (shift, lower 16 bit)
+    mov y osr       ; set y from OSR (copy, higer 16 bit)
+    nop [31]
+loop:
+    jmp pin cleanup ; abort if pin_lim is HIGH
+    set pins 1      ; send pulse
+    set pins 0
+noploop:
+    nop
+    jmp y-- noploop ; wait
+    mov y osr       ; reset y from OSR
+    jmp x-- loop
+cleanup:
+    out y 16        ; clear OSR
+    set y 0         ; clear y register
+    nop [31]
+    irq 0
+.wrap
+
+% c-sdk {
+static inline void pulse_program_init(PIO pio, uint sm, uint offset, uint pin_pul, uint pin_lim) {
+   pio_gpio_init(pio, pin_pul);
+   pio_gpio_init(pio, pin_lim);
+   pio_sm_set_consecutive_pindirs(pio, sm, pin_pul, 1, true);
+   pio_sm_set_consecutive_pindirs(pio, sm, pin_lim, 1, false);
+   pio_sm_config c = pulse_program_get_default_config(offset);
+   sm_config_set_jmp_pin(&c, pin_lim);
+   sm_config_set_set_pins(&c, pin_pul, 1);
+//   sm_config_set_sideset_pins(&c, pin);
+   sm_config_set_clkdiv(&c, 6250); // 20kHz
+//   sm_config_set_clkdiv(&c, 12500); // 10kHz
+   pio_sm_init(pio, sm, offset, &c);
+}
+%}
