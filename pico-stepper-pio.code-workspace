@@ -13,7 +13,10 @@
 			"mcu-debug.rtos-views",
 			"ms-vscode.vscode-serial-monitor",
 			"mcu-debug.peripheral-viewer",
-			"ms-vscode.cmake-tools"
+			"ms-vscode.cmake-tools",
+			"ms-vscode.cpptools",
+			"ms-vscode.cpptools-extension-pack",
+			"ms-vscode.cpptools-themes"
 		]
 	}
 }
