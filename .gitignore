@@ -1,7 +1,43 @@
-.idea
-.vscode
-_deps
-cmake-*
-build
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Debug files
+*.dSYM/
+
+
+/build/
+/CMakeFiles/
+/CMakeCache.txt
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# OS X
 .DS_Store
-*.pdf
+.Spotlight-V100
+.Trashes
+._*
